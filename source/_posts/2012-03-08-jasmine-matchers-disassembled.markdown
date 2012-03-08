@@ -17,7 +17,8 @@ Go to:
 [toBeFalsy](#toBeFalsy) |
 [toBeDefined](#toBeDefined) |
 [toBeFalsy](#toBeFalsy) |
-[toBeNull](#toBeNull)
+[toBeNull](#toBeNull) |
+[toEqual](#toEqual)
 
 <a name="toBeTruthy"></a>
 ## toBeTruthy
@@ -81,3 +82,10 @@ jasmine.Matchers.prototype.toBeNull = function() {
 {% endcodeblock %}
 
 {% jsfiddle kvbsv js,result presentation 360px %}
+
+<a name="toEqual"></a>
+## toEqual
+
+Compares the actual to the expected using common sense equality. Handles Objects, Arrays, etc. [Home](#home)
+
+{% jsfiddle 7q9N7 js,result presentation 660px %}
