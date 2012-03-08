@@ -5,8 +5,6 @@ title: KRUG Rails 3.1 Engines
 
 Slajdy z prezentacji: <a href="/slides/krug-rails-3.1-engines">KRUG Rails 3.1 Engines</a>
 
-<!-- more -->
-
 ## Kody źródłowe
 
 * Slajdy z prezentacji: <a href="https://github.com/lucassus/krug-rails-3.1-engines-slides">https://github.com/lucassus/krug-rails-3.1-engines-slides</a>
