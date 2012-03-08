@@ -350,8 +350,16 @@ TodoList.Models.Task = Backbone.Model.extend({
 });
 {% endcodeblock %}
 
-Green again!
+Green again! Not it's time for something less trivial.
+
+## Step four: creating and updating out model via ajax
+
+
 
 ## Try it in jsfiddle
 
+Feel free to fork it!
+
 {% jsfiddle tug6H js,result presentation 600px %}
+
+Cumming soon: "Part two: The collection" and "Part three: The view".
