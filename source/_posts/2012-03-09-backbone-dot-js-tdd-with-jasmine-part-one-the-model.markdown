@@ -12,7 +12,7 @@ categories:
   - KRUG
 ---
 
-## Initial Ruby on Rails applications
+## Initial Ruby on Rails application
 
 The initial rails application can be downloaded from github repo: [000-basic-app@tdd-with-backbonejs](https://github.com/lucassus/tdd-with-backbonejs/tree/000-basic-app)
 
@@ -76,7 +76,7 @@ end
 
 In order to execute our javascript tests just type in the console `guard --group frontend` wait for boot the rails and after several seconds you should see the following output:
 
-{% codeblock %}
+{% codeblock tests results %}
 $ guard --group frontend
 Guard is now watching at '/home/lucassus/Projects/tdd-with-backbonejs'
 Guard::Jasmine starts webrick test server on port 8888 in development environment.
@@ -115,7 +115,7 @@ Obviously this test will fail since:
 * and Task model is not defined within this namespace
 * required javascript files and dependencies are not loaded via assets pipeline
 
-{% codeblock result %}
+{% codeblock tests results %}
 TodoList.Models.Task
   ✘ should be defined
     ➤ ReferenceError: Can't find variable: TodoList in models/task._spec.js on line 3
@@ -160,7 +160,7 @@ TodoList.Models.Task = Backbone.Model.extend({});
 
 It's green!
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   ✔ should be defined
   ✔ can be instantiated
@@ -190,7 +190,7 @@ describe('TodoList.Models.Task', function() {
 });
 {% endcodeblock %}
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   new instance default values
     ✘ has default value for name
@@ -208,13 +208,13 @@ TodoList.Models.Task = Backbone.Model.extend({
 });
 {% endcodeblock %}
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   new instance default values
     ✔ should be defined
     ✔ can be instantiated
-    ✔ has default value for name
-    ✔ has default value for complete flag
+    ✔ has default value for the .name attribute
+    ✔ has default value for the .complete attribute
 4 specs, 0 failures
 {% endcodeblock %}
 
@@ -252,7 +252,7 @@ describe('TodoList.Models.Task', function() {
 
 Test will fail with the following messages:
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   getters
     #getId
@@ -279,7 +279,7 @@ TodoList.Models.Task = Backbone.Model.extend({
 
 ..and it should be green again!
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   new instance default values
     ✔ should be defined
@@ -329,7 +329,7 @@ describe('TodoList.Models.Task', function() {
 
 Obviously it will fail:
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   getters
     #getName
@@ -397,7 +397,7 @@ describe('TodoList.Models.Task', function() {
 });
 {% endcodeblock %}
 
-{% codeblock result %}
+{% codeblock tests results %}
 TodoList.Models.Task
   #save
     ✘ sends valid data to the server
@@ -420,7 +420,7 @@ TodoList.Models.Task = Backbone.Model.extend({
 
 Now we have:
 
-{% codeblock result %}
+{% codeblock tests results %}
 TodoList.Models.Task
   #save
     ✘ sends valid data to the server
@@ -535,7 +535,7 @@ describe('TodoList.Models.Task', function() {
 
 It will fail since the `url` is not set correctly.
 
-{% codeblock %}
+{% codeblock tests results %}
 TodoList.Models.Task
   #save
     request
@@ -711,4 +711,4 @@ Feel free to fork it!
 
 {% jsfiddle tug6H js,result presentation 600px %}
 
-Coming soon: "Part two: The collection" and "Part three: The view".
+Stay tuned, there will be more: "Part two: The collection" and "Part three: The view".. and maybe something about Routers.
