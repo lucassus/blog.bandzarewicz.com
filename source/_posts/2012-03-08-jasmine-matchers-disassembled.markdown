@@ -13,12 +13,13 @@ categories:
 Disassembled matchers for jasmine 1.1.0
 
 Go to:
-[toBeTruthy](#toBeTruthy) |
-[toBeFalsy](#toBeFalsy) |
-[toBeDefined](#toBeDefined) |
-[toBeFalsy](#toBeFalsy) |
-[toBeNull](#toBeNull) |
-[toEqual](#toEqual)
+[toBeTruthy()](#toBeTruthy) |
+[toBeFalsy()](#toBeFalsy) |
+[toBeDefined()](#toBeDefined) |
+[toBeFalsy()](#toBeFalsy) |
+[toBeNull()](#toBeNull) |
+[toEqual()](#toEqual) |
+[toContain()](#toContain)
 
 <a name="toBeTruthy"></a>
 ## toBeTruthy
@@ -89,3 +90,10 @@ jasmine.Matchers.prototype.toBeNull = function() {
 Compares the actual to the expected using common sense equality. Handles Objects, Arrays, etc. [Home](#home)
 
 {% jsfiddle 7q9N7 js,result presentation 660px %}
+
+<a name="toContain"></a>
+## toContain
+
+Matcher that checks that the expected item is an element in the actual Array. [Home](#home)
+
+{% jsfiddle 5Xtv8 js,result presentation 290px %}
