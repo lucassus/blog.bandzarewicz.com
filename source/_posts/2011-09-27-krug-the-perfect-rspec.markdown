@@ -1,6 +1,10 @@
 ---
 layout: post
 title: KRUG The perfect RSpec
+categories:
+  - rspec
+  - KRUG
+  - slides
 ---
 
 Slajdy z prezentacji: <a href="/slides/krug-the-perfect-rspec">The perfect RSpec</a>

@@ -4,10 +4,10 @@
 
 url: http://blog.bandzarewicz.com
 title: Łukasz Kazimierz Bandzarewicz
-subtitle: @lucassus
+subtitle: '@lucassus'
 author: Łukasz Bandzarewicz
 simple_search: http://google.com/search
-description:
+description: My blog
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in

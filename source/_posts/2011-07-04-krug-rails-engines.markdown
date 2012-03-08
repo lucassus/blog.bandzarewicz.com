@@ -1,6 +1,11 @@
 ---
 layout: post
 title: KRUG Rails 3.1 Engines
+categories:
+  - rails
+  - engines
+  - KRUG
+  - slides
 ---
 
 Slajdy z prezentacji: <a href="/slides/krug-rails-3.1-engines">KRUG Rails 3.1 Engines</a>

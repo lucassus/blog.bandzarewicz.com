@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Testing named scopes in Ruby on Rails 3.x
+categories:
+  - rails
+  - rspec
 ---
 
 ## The code

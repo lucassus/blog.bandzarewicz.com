@@ -3,7 +3,13 @@ layout: post
 title: "Backbone.js TDD with jasmine part one: The model"
 date: 2012-03-08 19:40
 comments: true
-categories: 
+categories:
+  - javascript
+  - backbone.js
+  - sinon.js
+  - testing
+  - jasmine
+  - KRUG
 ---
 
 ## Initial rails applications

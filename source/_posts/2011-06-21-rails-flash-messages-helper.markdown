@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Rails flash messages helper
+categories:
+  - rails
+  - rspec
 ---
 
 ## The code

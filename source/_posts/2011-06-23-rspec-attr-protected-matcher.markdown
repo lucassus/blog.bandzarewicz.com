@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Rspec matcher for testing model's attr_protected fields
+categories:
+  - rails
+  - rspec
 ---
 
 ## Custom matcher DSL
