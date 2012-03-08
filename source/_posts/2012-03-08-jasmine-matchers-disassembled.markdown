@@ -20,6 +20,7 @@ Go to:
 [toBeNull()](#toBeNull) |
 [toEqual()](#toEqual) |
 [toContain()](#toContain)
+[toBeLessThan(), toBeGreaterThan()](#toBeLessThan)
 
 <a name="toBeTruthy"></a>
 ## toBeTruthy
@@ -97,3 +98,20 @@ Compares the actual to the expected using common sense equality. Handles Objects
 Matcher that checks that the expected item is an element in the actual Array. [Home](#home)
 
 {% jsfiddle 5Xtv8 js,result presentation 335px %}
+
+<a name="toBeLessThan"></a>
+## toBeLessThan, toBeGreaterThan
+
+[Home](#home)
+
+{% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L286 %}
+jasmine.Matchers.prototype.toBeLessThan = function(expected) {
+  return this.actual < expected;
+};
+
+jasmine.Matchers.prototype.toBeGreaterThan = function(expected) {
+  return this.actual > expected;
+};
+{% endcodeblock %}
+
+{% jsfiddle 5GNac js,result presentation 330px %}
