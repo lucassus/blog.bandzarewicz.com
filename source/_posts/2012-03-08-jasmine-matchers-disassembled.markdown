@@ -32,7 +32,7 @@ jasmine.Matchers.prototype.toBeTruthy = function() {
 };
 {% endcodeblock %}
 
-{% jsfiddle ScTrG js,result presentation 680px %}
+{% jsfiddle ScTrG js,result presentation 695px %}
 
 <a name="toBeFalsy"></a>
 ## toBeFalsy
@@ -45,7 +45,7 @@ jasmine.Matchers.prototype.toBeFalsy = function() {
 };
 {% endcodeblock %}
 
-{% jsfiddle f99mv js,result presentation 200px %}
+{% jsfiddle f99mv js,result presentation 315px %}
 
 <a name="toBeDefined"></a>
 ## toBeDefined
@@ -58,7 +58,7 @@ jasmine.Matchers.prototype.toBeDefined = function() {
 };
 {% endcodeblock %}
 
-{% jsfiddle ZG6uH js,result presentation 380px %}
+{% jsfiddle ZG6uH js,result presentation 395px %}
 
 <a name="toBeUndefined"></a>
 ## toBeUndefined
@@ -82,18 +82,18 @@ jasmine.Matchers.prototype.toBeNull = function() {
 };
 {% endcodeblock %}
 
-{% jsfiddle kvbsv js,result presentation 360px %}
+{% jsfiddle kvbsv js,result presentation 400px %}
 
 <a name="toEqual"></a>
 ## toEqual
 
 Compares the actual to the expected using common sense equality. Handles Objects, Arrays, etc. [Home](#home)
 
-{% jsfiddle 7q9N7 js,result presentation 660px %}
+{% jsfiddle 7q9N7 js,result presentation 695px %}
 
 <a name="toContain"></a>
 ## toContain
 
 Matcher that checks that the expected item is an element in the actual Array. [Home](#home)
 
-{% jsfiddle 5Xtv8 js,result presentation 290px %}
+{% jsfiddle 5Xtv8 js,result presentation 335px %}
