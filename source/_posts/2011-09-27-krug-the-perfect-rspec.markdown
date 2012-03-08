@@ -3,6 +3,7 @@ layout: post
 title: KRUG The perfect RSpec
 categories:
   - rspec
+  - testing
   - KRUG
   - slides
 ---

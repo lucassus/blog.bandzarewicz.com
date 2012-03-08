@@ -12,15 +12,20 @@ categories:
   - KRUG
 ---
 
-## Initial rails applications
+## Initial Ruby on Rails applications
 
 The initial rails application can be downloaded from github repo: [000-basic-app@tdd-with-backbonejs](https://github.com/lucassus/tdd-with-backbonejs/tree/000-basic-app)
 
-Basic application provides Task model (name: string, complete: boolean) and corresponding controller with RESTFUL json interface:
+The basic application provides model `Task(name: string, complete: boolean)` and corresponding controller with RESTFUL json interface:
 
 * GET `/tasks.json`
 * POST `/tasks.json`
 * PUT `/tasks/:id.json`
+
+Don't forget about `rake db:create:all` and `rake db:migrate`.<br/>
+You could seed the database with initial tasks: `rake db:seed`.
+
+Now you can run rails: `rails s` and navigate to `http://localhost:3000`.. and you should see nothing special, just an another todo list app without any fancy features and javascripts.
 
 ### Gems used in the project
 
@@ -58,7 +63,18 @@ Also in `./vendor/assets/javascripts` we have:
 
 ### Running the tests
 
-Just type in the console `guard --group frontend` wait for boot and after several seconds you should see the following output:
+Initial application already contains pre-configured Guardfile for jasmine. It can run javascript specs for our application without the browser!
+
+{% codeblock Guardfile lang:ruby %}
+group :frontend do
+  guard 'jasmine', :phantomjs_bin => './spec/javascripts/support/phantomjs', :specdoc => :always, :console => :always do
+    watch(%r{app/assets/javascripts/.+(js\.coffee|js)}) { "spec/javascripts" }
+    watch(%r{spec/javascripts/.+(js\.coffee|js)}) { "spec/javascripts" }
+  end
+end
+{% endcodeblock %}
+
+In order to execute our javascript tests just type in the console `guard --group frontend` wait for boot the rails and after several seconds you should see the following output:
 
 {% codeblock %}
 $ guard --group frontend
@@ -72,9 +88,9 @@ Run Jasmine suite at http://localhost:8888/jasmine
 in 0.002 seconds
 {% endcodeblock %}
 
-TIP: phantomjs in already included in `./spec/javascipt/support/phantomjs` but you may have to compile it on your machine
+TIP 1: phantomjs in already included in `./spec/javascipt/support/phantomjs` but you may have to compile it on your machine.
 
-TIP2: you can also see more detailed tests output in the browser, just navigate to `http://localhost:8888/jasmine`
+TIP 2: you can also see more detailed tests output in the browser, just navigate to `http://localhost:8888/jasmine`.
 
 ## Step one: class TodoList.Models.Tasks should be defined and it can be instantiated
 
@@ -163,11 +179,11 @@ describe('TodoList.Models.Task', function() {
     });
 
     describe('new instance default values', function() {
-        it('has default value for name', function() {
+        it('has default value for the .name attribute', function() {
             expect(this.task.get('name')).toEqual('');
         });
 
-        it('has default value for complete flag', function() {
+        it('has default value for the .complete attribute', function() {
             expect(this.task.get('complete')).toBeFalsy();
         });
     });
@@ -206,10 +222,10 @@ It seems that we don't have to define default value for the `complete` flag. It'
 
 ## Step three: define getters
 
-Generally in backbone.js we're using `model.get(attribute)` method for instance `model.get('name')` or `model.get('complete')` but in my opinion this approach is prone to typos and other strange errors. To avoid this kind of problems in my backbone models I'm creating getters for all model's attributes, for instance the `name` attribute will have `model.getName()` method.
+Generally backbone.js for fetching attributes values has build-in `model.get(attribute)` method, for instance `model.get('name')` or `model.get('complete')` but in my opinion this approach is prone to typos and other strange errors. To avoid this kind of problems in my backbone models I'm creating getters for all model's attributes, for example the `name` attribute will have `model.getName()` method.
 
 Lets create a simple test case for those methods.
-First create a `model.getId()` method:
+First of all create a `model.getId()` method:
 
 {% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
 describe('TodoList.Models.Task', function() {
@@ -280,7 +296,9 @@ TodoList.Models.Task
 
 Write some specs for `model.getName()` and `model.getComplete()` methods. In the following example I'm going to use sinon's test stubs. In this case backbone's `get(attribute)` method is stubbed and in the test I'm asserting that this method was called with valid attribute name.
 
-TIP: don't forget to require sinon.js in our spec helper, just add `//= require sinon` to the `./spec/javascript/spec.js` file.
+TIP 1: don't forget to require sinon.js in our spec helper, just add `//= require sinon` to the `./spec/javascript/spec.js` file.
+
+TIP 2: sinon should be required before our javascripts specs.
 
 {% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
 describe('TodoList.Models.Task', function() {
@@ -303,16 +321,7 @@ describe('TodoList.Models.Task', function() {
         });
 
         describe('#getComplete', function() {
-            it('should be defined', function() {
-                expect(this.task.getComplete).toBeDefined();
-            });
-
-            it('returns value the complete attribute', function() {
-                var stub = sinon.stub(this.task, 'get').returns(false);
-
-                expect(this.task.getComplete()).toBeFalsy();
-                expect(stub.calledWith('complete')).toBeTruthy();
-            });
+            // TODO try do it by yourself
         });
     });
 });
@@ -358,9 +367,343 @@ TodoList.Models.Task = Backbone.Model.extend({
 
 Green again! Not it's time for something less trivial.
 
-## Step four: creating and updating out model via ajax
+## Step four: creating and updating our model via ajax
 
+For creating a new tasks and updating its `complete` flag we'll use built-in in backbone `save` method. Let see whether this method meets all out requirements:
 
+{% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
+describe('TodoList.Models.Task', function() {
+    // ..
+
+    describe('#save', function() {
+        beforeEach(function() {
+            this.server = sinon.fakeServer.create();
+        });
+
+        afterEach(function() {
+            this.server.restore();
+        });
+
+        it('sends valid data to the server', function() {
+            this.task.save({name: 'A new task to do'});
+            var request = this.server.requests[0];
+            var params = JSON.parse(request.requestBody);
+
+            expect(params.task).toBeDefined();
+            expect(params.task.name).toEqual('A new task to do');
+            expect(params.task.complete).toBeFalsy();
+        });
+    });
+});
+{% endcodeblock %}
+
+{% codeblock result %}
+TodoList.Models.Task
+  #save
+    ✘ sends valid data to the server
+      ➤ Error: A "url" property or function must be specified in backbone.js on line 1287
+ERROR: 12 specs, 1 failure
+{% endcodeblock %}
+
+It seems that our model hasn't required `url` property. Basically `url` can be a property or a function and it returns the relative URL where the model's resource would be located on the server.
+Let add this property with some arbitrary value:
+
+{% codeblock app/assets/javascripts/models/task.js lang:javascript %}
+TodoList.Models.Task = Backbone.Model.extend({
+  // ..
+
+  url: '/something'
+
+  // ..
+});
+{% endcodeblock %}
+
+Now we have:
+
+{% codeblock result %}
+TodoList.Models.Task
+  #save
+    ✘ sends valid data to the server
+      ➤ Expected undefined to be defined.
+      ➤ TypeError: Result of expression 'params.task' [undefined] is not an object. in models/task._spec.js on line 84
+ERROR: 12 specs, 2 failures
+{% endcodeblock %}
+
+It seems that our tasks attributes are not wrapped within `task` property. In order to fix it we should override model's `toJSON` method.
+In the backbone docs for this method we find the following description:
+
+{% blockquote %}
+ Return a copy of the model's attributes for JSON stringification. This can be used for persistence, serialization, or for augmentation before being handed off to a view.
+{% endblockquote %}
+
+{% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
+describe('TodoList.Models.Task', function() {
+    // ..
+
+    describe('#save', function() {
+        beforeEach(function() {
+            this.server = sinon.fakeServer.create();
+        });
+
+        afterEach(function() {
+            this.server.restore();
+        });
+
+        it('sends valid data to the server', function() {
+            this.task.save({name: 'A new task to do'});
+            var request = this.server.requests[0];
+            var params = JSON.parse(request.requestBody);
+
+            expect(params.task).toBeDefined();
+            expect(params.task.name).toEqual('A new task to do');
+            expect(params.task.complete).toBeFalsy();
+        });
+    });
+});
+{% endcodeblock %}
+
+{% codeblock app/assets/javascripts/models/task.js lang:javascript %}
+TodoList.Models.Task = Backbone.Model.extend({
+  // ..
+
+  url: '/something',
+
+  toJSON: function() {
+    return { task: this.attributes };
+  }
+
+  // ..
+});
+{% endcodeblock %}
+
+Green again but `url` attribute definitely is not what we want. For creating task it should be `/tasks.json` (along with `POST` request method) and for updating existing task's attributes it should be `/tasks/:id.json` (along with `PUT` request method). Let write some specs for those scenarios:
+
+{% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
+describe('TodoList.Models.Task', function() {
+    // ..
+
+    describe('#save', function() {
+        // .. fakeServer
+
+        // .. it('sends valid data to the server', function() { });
+
+        describe('request', function() {
+
+            describe('on create', function() {
+                beforeEach(function() {
+                    this.task.id = null;
+                    this.task.save();
+                    this.request = this.server.requests[0];
+                });
+
+                it('should be POST', function() {
+                    expect(this.request.method).toEqual('POST');
+                });
+
+                it('should be async', function() {
+                    expect(this.request.async).toBeTruthy();
+                });
+
+                it('should have valid url', function() {
+                    expect(this.request.url).toEqual('/tasks.json');
+                });
+            });
+
+            describe('on update', function() {
+                beforeEach(function() {
+                    this.task.id = 66;
+                    this.task.save();
+                    this.request = this.server.requests[0];
+                });
+
+                it('should be PUT', function() {
+                    expect(this.request.method).toEqual('PUT');
+                });
+
+                it('should be async', function() {
+                    expect(this.request.async).toBeTruthy();
+                });
+
+                it('should have valid url', function() {
+                    expect(this.request.url).toEqual('/tasks/66.json');
+                });
+            });
+        });
+    });
+});
+{% endcodeblock %}
+
+It will fail since the `url` is not set correctly.
+
+{% codeblock %}
+TodoList.Models.Task
+  #save
+    request
+      on create
+        ✘ should have valid url
+          ➤ Expected '/something' to equal '/tasks.json'.
+      on update
+        ✘ should have valid url
+          ➤ Expected '/something' to equal '/tasks/66.json'.
+ERROR: 18 specs, 2 failures
+{% endcodeblock %}
+
+Try to fix it with the following code snippet:
+
+{% codeblock app/assets/javascripts/models/task.js lang:javascript %}
+TodoList.Models.Task = Backbone.Model.extend({
+  // ..
+
+  url: function() {
+    if (this.isNew()) {
+      return '/tasks.json';
+    } else {
+      return '/tasks/' + this.getId() + '.json';
+    }
+  }
+
+  // ..
+});
+{% endcodeblock %}
+
+Green again!
+
+TIP: we could define custom jasmine metchers in order to DRY a bit above test cases.
+
+Create `spec/javascripts/support/request_matchers.js` file with the following content:
+
+{% codeblock spec/javascripts/support/request_matchers.js lang:javascript %}
+beforeEach(function() {
+  this.addMatchers({
+    toBeGET: function() {
+      var actual = this.actual.method;
+      return actual === 'GET';
+    },
+    toBePOST: function() {
+      var actual = this.actual.method;
+      return actual === 'POST';
+    },
+    toBePUT: function() {
+      var actual = this.actual.method;
+      return actual === 'PUT';
+    },
+    toHaveUrl: function(expected) {
+      var actual = this.actual.url;
+      this.message = function() {
+        return "Expected request to have url " + expected + " but was " + actual
+      };
+      return actual === expected;
+    },
+    toBeAsync: function() {
+      var actual = this.actual.async;
+      return actual;
+    }
+  });
+});
+{% endcodeblock %}
+
+And now instead:
+
+{% codeblock lang:javascript %}
+it('should be POST', function() {
+  expect(this.request.method).toEqual('POST');
+});
+{% endcodeblock %}
+
+We could write:
+
+{% codeblock lang:javascript %}
+it('should be POST', function() {
+  expect(this.request).toBePOST();
+});
+{% endcodeblock %}
+
+TIP: Try to refactor other test scenarios.
+
+We can also do one more step further and create the following macros:
+
+{% codeblock lang:javascript %}
+window.itShouldBePOST = function() {
+  it('should be POST', function() {
+    expect(this.request).toBePOST();
+  });
+};
+
+window.itShouldBePUT = function() {
+  it('should be PUT', function() {
+    expect(this.request).toBePUT();
+  });
+};
+
+window.itShouldBeAsync = function() {
+  it('should be async', function() {
+    expect(this.request).toBeAsync();
+  });
+};
+
+window.itShouldHaveUrl = function(url) {
+  it('should have url ' + url, function() {
+    expect(this.request).toHaveUrl(url);
+  });
+};
+{% endcodeblock %}
+
+Now our test case is really DRY!
+
+{% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
+describe('TodoList.Models.Task', function() {
+    // ..
+
+    describe('#save', function() {
+        // .. fakeServer
+
+        // .. it('sends valid data to the server', function() { });
+
+        describe('request', function() {
+            beforeEach(function() {
+                this.performRequest = function() {
+                    this.task.save();
+                    return this.server.requests[0];
+                };
+            });
+
+            describe('on create', function() {
+                beforeEach(function() {
+                    this.task.id = null;
+                    this.request = this.performRequest();
+                });
+
+                itShouldBePOST();
+                itShouldBeAsync();
+                itShouldHaveUrl('/tasks.json');
+            });
+
+            describe('on update', function() {
+                beforeEach(function() {
+                    this.task.id = 66;
+                    this.request = this.performRequest();
+                });
+
+                itShouldBePUT();
+                itShouldBeAsync();
+                itShouldHaveUrl('/tasks/66.json');
+            });
+        });
+    });
+});
+{% endcodeblock %}
+
+Our model is ready! Now you can open firebug or goggle-chrome console and test it:
+
+{% codeblock lang:javascript %}
+var task = new TodoList.Models.Task();
+task.set('name', 'Something new to do');
+task.save();
+task.save({ complete: true });
+// .. and so on
+{% endcodeblock %}
+
+TIP: You could try to write some test scenarios for backbone model's validations.
 
 ## Try it in jsfiddle
 
@@ -368,4 +711,4 @@ Feel free to fork it!
 
 {% jsfiddle tug6H js,result presentation 600px %}
 
-Cumming soon: "Part two: The collection" and "Part three: The view".
+Coming soon: "Part two: The collection" and "Part three: The view".
