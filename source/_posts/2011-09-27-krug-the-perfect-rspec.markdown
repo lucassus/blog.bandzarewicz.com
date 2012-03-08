@@ -5,6 +5,8 @@ title: KRUG The perfect RSpec
 
 Slajdy z prezentacji: <a href="/slides/krug-the-perfect-rspec">The perfect RSpec</a>
 
+<!-- more -->
+
 ## Przydatke linki
 
 * DSL or not DSL: <a href="http://blog.plataformatec.com.br/2010/06/dsl-or-nodsl-at-euruko-2010/">http://blog.plataformatec.com.br/2010/06/dsl-or-nodsl-at-euruko-2010/</a>

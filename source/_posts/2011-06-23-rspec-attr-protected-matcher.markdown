@@ -5,7 +5,9 @@ title: Rspec matcher for testing model's attr_protected fields
 
 ## Custom matcher DSL
 
-{% highlight ruby %}
+<!-- more -->
+
+{% codeblock lang:ruby %}
 RSpec::Matchers.define :have_something do |something|
   match do |actual|
     # let assume that object under the test has #has_something? method
@@ -29,11 +31,11 @@ describe Something do
   subject { Something.new }
   it { should have_something('a thing') }
 end
-{% endhighlight %}
+{% endcodeblock %}
 
 ## Custom matcher for testing attr_protected
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 RSpec::Matchers.define :protect_attribute do |attribute, value = nil|
   match do |record|
     old_value = record[attribute]
@@ -45,9 +47,9 @@ RSpec::Matchers.define :protect_attribute do |attribute, value = nil|
     "#{subject.class} should protect attribute #{attribute.inspect}"
   end
 end
-{% endhighlight %}
+{% endcodeblock %}
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 class Topic < ActiveRecord::Base
   attr_accessible :title, :message
 end
@@ -59,5 +61,4 @@ describe Topic do
 
   it { should protect_attribute(:status) }
 end
-{% endhighlight %}
-
+{% endcodeblock %}

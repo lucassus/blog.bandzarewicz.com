@@ -5,7 +5,7 @@ title: Testing named scopes in Ruby on Rails 3.x
 
 ## The code
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 class Topic < ActiveRecord::Base
   STATUS_PENDING = 'pending'
   STATUS_ACCEPTED = 'accepted'
@@ -19,9 +19,9 @@ class Topic < ActiveRecord::Base
   scope :accepted, where(:status => STATUS_ACCEPTED)
   scope :done, where(:status => STATUS_DONE)
 end
-{% endhighlight %}
+{% endcodeblock %}
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 describe Topic do
 
   describe "scopes" do
@@ -39,4 +39,4 @@ describe Topic do
   end
 
 end
-{% endhighlight %}
+{% endcodeblock %}

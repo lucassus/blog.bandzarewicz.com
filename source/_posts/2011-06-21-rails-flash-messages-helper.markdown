@@ -5,7 +5,7 @@ title: Rails flash messages helper
 
 ## The code
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 module ApplicationHelper
 
   def flash_messages
@@ -19,11 +19,11 @@ module ApplicationHelper
   end
 
 end
-{% endhighlight %}
+{% endcodeblock %}
 
 ## The spec
 
-{% highlight ruby %}
+{% codeblock lang:ruby %}
 require 'spec_helper'
 
 describe ApplicationHelper do
@@ -58,18 +58,18 @@ describe ApplicationHelper do
   end
 
 end
-{% endhighlight %}
+{% endcodeblock %}
 
 ## The usage
 
-{% highlight html %}
+{% codeblock lang:html %}
 <%= flash_messages %>
-{% endhighlight %}
+{% endcodeblock %}
 
 ## ..and the output
 
-{% highlight html %}
+{% codeblock lang:html %}
 <ul id="flash-messages">
   <li class="flash-message notice">Vote was added.</li>
 </ul>
-{% endhighlight %}
+{% endcodeblock %}
