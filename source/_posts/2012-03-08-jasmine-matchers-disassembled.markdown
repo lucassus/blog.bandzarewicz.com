@@ -9,12 +9,20 @@ categories:
   - jasmine
 ---
 
-Go to: [toBeTruthy](#toBeTruthy) | [toBeFalsy](#toBeFalsy) | [toBeDefined](#toBeDefined)
+<a name="home"></a>
+Disassembled matchers for jasmine 1.1.0
+
+Go to:
+[toBeTruthy](#toBeTruthy) |
+[toBeFalsy](#toBeFalsy) |
+[toBeDefined](#toBeDefined) |
+[toBeFalsy](#toBeFalsy) |
+[toBeNull](#toBeNull)
 
 <a name="toBeTruthy"></a>
 ## toBeTruthy
 
-Matcher that boolean not-nots the actual.
+Matcher that boolean not-nots the actual. [Home](#home)
 
 {% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L156 %}
 jasmine.Matchers.prototype.toBeTruthy = function() {
@@ -27,7 +35,7 @@ jasmine.Matchers.prototype.toBeTruthy = function() {
 <a name="toBeFalsy"></a>
 ## toBeFalsy
 
-Matcher that boolean nots the actual.
+Matcher that boolean nots the actual. [Home](#home)
 
 {% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L164 %}
 jasmine.Matchers.prototype.toBeFalsy = function() {
@@ -40,7 +48,7 @@ jasmine.Matchers.prototype.toBeFalsy = function() {
 <a name="toBeDefined"></a>
 ## toBeDefined
 
-Matcher that compares the actual to jasmine.undefined.
+Matcher that compares the actual to jasmine.undefined. [Home](#home)
 
 {% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L135 %}
 jasmine.Matchers.prototype.toBeDefined = function() {
@@ -49,3 +57,27 @@ jasmine.Matchers.prototype.toBeDefined = function() {
 {% endcodeblock %}
 
 {% jsfiddle ZG6uH js,result presentation 380px %}
+
+<a name="toBeUndefined"></a>
+## toBeUndefined
+
+Matcher that compares the actual to jasmine.undefined. [Home](#home)
+
+{% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L135 %}
+jasmine.Matchers.prototype.toBeUndefined = function() {
+  return (this.actual === jasmine.undefined);
+};
+{% endcodeblock %}
+
+<a name="toBeNull"></a>
+## toBeNull
+
+Matcher that compares the actual to null. [Home](#home)
+
+{% codeblock source lang:javascript https://github.com/pivotal/jasmine/blob/c2160477114d7a5b28c36c6c03c8f6c13f8634b4/src/core/Matchers.js#L149 %}
+jasmine.Matchers.prototype.toBeNull = function() {
+  return (this.actual === null);
+};
+{% endcodeblock %}
+
+{% jsfiddle kvbsv js,result presentation 360px %}
