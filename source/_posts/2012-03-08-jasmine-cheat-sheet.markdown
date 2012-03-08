@@ -32,7 +32,7 @@ toThrow();
 
 {% include_code javascripts/jasmine/cheat-sheet/matchers.js %}
 
-### Try is in jsfiddle
+### Try this in jsfiddle
 
 {% jsfiddle 4DrrW js,result %}
 
