@@ -25,7 +25,7 @@ The basic application provides model `Task(name: string, complete: boolean)` and
 Don't forget about `rake db:create:all` and `rake db:migrate`.<br/>
 You could seed the database with initial tasks: `rake db:seed`.
 
-Now you can run rails: `rails s` and navigate to `http://localhost:3000`.. and you should see nothing special, just an another todo list app without any fancy features and javascripts.
+Now you can run rails: `rails s` and navigate to `http://localhost:3000`.. and you should see nothing special, just an another todo list app without any fancy features and JavaScripts.
 
 ### Gems used in the project
 
@@ -63,7 +63,7 @@ Also in `./vendor/assets/javascripts` we have:
 
 ### Running the tests
 
-Initial application already contains pre-configured Guardfile for jasmine. It can run javascript specs for our application without the browser!
+Initial application already contains pre-configured Guardfile for jasmine. It can run JavaScript specs for our application without the browser!
 
 {% codeblock Guardfile lang:ruby %}
 group :frontend do
@@ -74,7 +74,7 @@ group :frontend do
 end
 {% endcodeblock %}
 
-In order to execute our javascript tests just type in the console `guard --group frontend` wait for boot the rails and after several seconds you should see the following output:
+In order to execute our JavaScript tests just type in the console `guard --group frontend` wait for rails to boot and after several seconds you should see the following output:
 
 {% codeblock tests results %}
 $ guard --group frontend
@@ -113,7 +113,7 @@ Obviously this test will fail since:
 
 * We don't have `TodoList.Models` namespace
 * and Task model is not defined within this namespace
-* required javascript files and dependencies are not loaded via assets pipeline
+* required JavaScript files and dependencies are not loaded via assets pipeline
 
 {% codeblock tests results %}
 TodoList.Models.Task
@@ -141,7 +141,7 @@ window.TodoList = {
 {% endcodeblock %}
 
 In the first require section we require all necessary javascipt libraries: jQuery, underscore and finnaly Backbone.js
-Second section loads our application's javascripts.
+Second section loads our application's JavaScripts.
 
 Add following content to the `./spec/javascripts/spec.js` file:
 
@@ -150,7 +150,7 @@ Add following content to the `./spec/javascripts/spec.js` file:
 //= require_tree .
 {% endcodeblock %}
 
-Those directives will load our application along with all test and helper files defined in the `./spec/javascripts` folder.
+These directives will load our application along with all test and helper files defined in the `./spec/javascripts` folder.
 
 And finally define initial `TodoList.Models.Task` class:
 
@@ -222,7 +222,7 @@ It seems that we don't have to define default value for the `complete` flag. It'
 
 ## Step three: define getters
 
-Generally backbone.js for fetching attributes values has build-in `model.get(attribute)` method, for instance `model.get('name')` or `model.get('complete')` but in my opinion this approach is prone to typos and other strange errors. To avoid this kind of problems in my backbone models I'm creating getters for all model's attributes, for example the `name` attribute will have `model.getName()` method.
+Generally backbone.js for fetching attributes values has a build-in `model.get(attribute)` method, for instance `model.get('name')` or `model.get('complete')` but in my opinion this approach is prone to typos and other strange errors. To avoid this kind of problems in my backbone models I'm creating getters for all model's attributes, for example the `name` attribute will have `model.getName()` method.
 
 Lets create a simple test case for those methods.
 First of all create a `model.getId()` method:
@@ -265,7 +265,7 @@ TodoList.Models.Task
 ERROR: 7 specs, 3 failures
 {% endcodeblock %}
 
-Let add implementation for the missing method
+Let's add implementation for the missing method
 
 {% codeblock app/assets/javascripts/models/task.js lang:javascript %}
 TodoList.Models.Task = Backbone.Model.extend({
@@ -298,7 +298,7 @@ Write some specs for `model.getName()` and `model.getComplete()` methods. In the
 
 TIP 1: don't forget to require sinon.js in our spec helper, just add `//= require sinon` to the `./spec/javascript/spec.js` file.
 
-TIP 2: sinon should be required before our javascripts specs.
+TIP 2: sinon should be required before our JavaScripts specs.
 
 {% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
 describe('TodoList.Models.Task', function() {
@@ -369,7 +369,7 @@ Green again! Not it's time for something less trivial.
 
 ## Step four: creating and updating our model via ajax
 
-For creating a new tasks and updating its `complete` flag we'll use built-in in backbone `save` method. Let see whether this method meets all out requirements:
+For creating a new tasks and updating its `complete` flag we'll use built-in in backbone `save` method. Let's see whether this method meets all our requirements:
 
 {% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
 describe('TodoList.Models.Task', function() {
@@ -406,7 +406,7 @@ ERROR: 12 specs, 1 failure
 {% endcodeblock %}
 
 It seems that our model hasn't required `url` property. Basically `url` can be a property or a function and it returns the relative URL where the model's resource would be located on the server.
-Let add this property with some arbitrary value:
+Let's add this property with some arbitrary value:
 
 {% codeblock app/assets/javascripts/models/task.js lang:javascript %}
 TodoList.Models.Task = Backbone.Model.extend({
@@ -568,7 +568,7 @@ TodoList.Models.Task = Backbone.Model.extend({
 
 Green again!
 
-TIP: we could define custom jasmine metchers in order to DRY a bit above test cases.
+TIP: we could define custom jasmine matchers in order to make the test cases above more DRY.
 
 Create `spec/javascripts/support/request_matchers.js` file with the following content:
 
