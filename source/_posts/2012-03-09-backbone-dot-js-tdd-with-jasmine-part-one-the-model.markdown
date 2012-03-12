@@ -436,32 +436,6 @@ In the backbone docs for this method we find the following description:
  Return a copy of the model's attributes for JSON stringification. This can be used for persistence, serialization, or for augmentation before being handed off to a view.
 {% endblockquote %}
 
-{% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
-describe('TodoList.Models.Task', function() {
-    // ..
-
-    describe('#save', function() {
-        beforeEach(function() {
-            this.server = sinon.fakeServer.create();
-        });
-
-        afterEach(function() {
-            this.server.restore();
-        });
-
-        it('sends valid data to the server', function() {
-            this.task.save({name: 'A new task to do'});
-            var request = this.server.requests[0];
-            var params = JSON.parse(request.requestBody);
-
-            expect(params.task).toBeDefined();
-            expect(params.task.name).toEqual('A new task to do');
-            expect(params.task.complete).toBeFalsy();
-        });
-    });
-});
-{% endcodeblock %}
-
 {% codeblock app/assets/javascripts/models/task.js lang:javascript %}
 TodoList.Models.Task = Backbone.Model.extend({
   // ..
@@ -477,6 +451,8 @@ TodoList.Models.Task = Backbone.Model.extend({
 {% endcodeblock %}
 
 Green again but `url` attribute definitely is not what we want. For creating task it should be `/tasks.json` (along with `POST` request method) and for updating existing task's attributes it should be `/tasks/:id.json` (along with `PUT` request method). Let write some specs for those scenarios:
+
+Let's override this method:
 
 {% codeblock spec/javascripts/models/task_spec.js lang:javascript %}
 describe('TodoList.Models.Task', function() {
