@@ -236,3 +236,5 @@ var task = new TodoList.Models.Task({ id: 1 });
 task.fetch(); // GET /tasks/1.json
 // etc.
 {% endcodeblock %}
+
+Now it's time for the real challenge - the form for adding tasks. Stay tuned!
