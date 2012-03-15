@@ -12,7 +12,7 @@ categories:
   - KRUG
 ---
 
-In the previous part [Backbone.js TDD with jasmine part one: The model]({{ site.url}}/blog/backbone-dot-js-tdd-with-jasmine-part-two-the-collection) we've created a simple `TodoList.Models.Task` model for handling creating and updating a task.
+In the previous part [Backbone.js TDD with jasmine part one: The model]({{ site.url}}/blog/backbone-dot-js-tdd-with-jasmine-part-two-the-collection) we created a simple `TodoList.Models.Task` model for handling creating and updating a task.
 Code from the previous step can be downloaded from github repository: [004-complete-task-model@tdd-with-backbonejs](https://github.com/lucassus/tdd-with-backbonejs/tree/004-complete-task-model)
 
 Now it's time to create a `TodoList.Collections.Tasks` collection. Generally in backbone.js collections are ordered sets of models. In our application we will use this collection for fetching tasks from the serer (`fetch` method) and for creating new task (`create` method).
@@ -32,7 +32,7 @@ describe('TodoList.Collections.Tasks', function() {
 });
 {% endcodeblock %}
 
-Obviously we need a Tasks collection, so let's add it:
+Obviously we need a `Tasks` collection, so let's add it:
 
 {% codeblock app/assets/javascripts/collections/tasks.js lang:javascript %}
 TodoList.Collections.Tasks = Backbone.Collection.extend({});
@@ -113,7 +113,7 @@ TodoList.Collections.Tasks = Backbone.Collection.extend({
 
 Green!
 
-In the next step we will check that when the server responds, the collection creates models representing the JSON returned. For this we’ll need to have our fake server respond with some JSON data. We expand our beforeEach function to include this:
+In the next step we will check that when the server responds, the collection creates models representing the JSON returned. For this we’ll need to have our fake server respond with some JSON data. We expand our `beforeEach` function to include this:
 
 {% codeblock lang:javascript %}
 this.server.respondWith('GET', '/tasks.json', [
@@ -123,7 +123,7 @@ this.server.respondWith('GET', '/tasks.json', [
 ]);
 {% endcodeblock %}
 
-As you see in this example we're stubing server's response with sinon's `respondWith` helper method. The fake server’s `respondWith` method takes three arguments here. The first and second are the HTTP request method and URL to respond to. The final argument is an array representing the response that is returned, which itself has three values: the HTTP response code, an object literal of response headers, and a string containing the response body.
+As you see in this example we're stubbing server's response with sinon's `respondWith` helper method. The fake server’s `respondWith` method takes three arguments here. The first and second are the HTTP request method and URL to respond to. The final argument is an array representing the response that is returned, which itself has three values: the HTTP response code, an object literal of response headers, and a string containing the response body.
 Variable `responseFixture` will contain an object with our dummy data and we're using `JSON.stringify` to convert this object to the JSON string (returned by the fake server).
 
 The complete spec should look like this:
@@ -210,7 +210,7 @@ TodoList.Collections.Tasks = Backbone.Collection.extend({
 
 Should be green again!
 
-Now we have all functionality to manage tasks from javascript. Let's create a new task using our collection.
+Now we have all the functionality to manage tasks from JavaScript. Let's create a new task using our collection.
 
 {% blockquote http://documentcloud.github.com/backbone/#Collection-create %}
 collection.create(task)
