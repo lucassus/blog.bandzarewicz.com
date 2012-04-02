@@ -17,6 +17,8 @@ Code from the previous step can be downloaded from github repository: [004-compl
 
 Now it's time to create a `TodoList.Collections.Tasks` collection. Generally in backbone.js collections are ordered sets of models. In our application we will use this collection for fetching tasks from the serer (`fetch` method) and for creating new task (`create` method).
 
+<!-- more -->
+
 Firstly, let’s test that we can add instantiate to the collection.
 
 {% codeblock spec/javascripts/collections/tasks.js lang:javascript %}
