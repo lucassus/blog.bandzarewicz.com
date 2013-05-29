@@ -22,6 +22,8 @@ The basic application provides model `Task(name: string, complete: boolean)` and
 * POST `/tasks.json`
 * PUT `/tasks/:id.json`
 
+<!-- more -->
+
 Don't forget about `rake db:create:all` and `rake db:migrate`.<br/>
 You could seed the database with initial tasks: `rake db:seed`.
 

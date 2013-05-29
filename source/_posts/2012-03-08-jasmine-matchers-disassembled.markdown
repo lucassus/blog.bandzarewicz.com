@@ -24,6 +24,8 @@ Go to matcher:
 [toMatch()](#toMatch) |
 [toThrow()](#toThrow)
 
+<!-- more -->
+
 <a name="toBeTruthy"></a>
 ## toBeTruthy
 
