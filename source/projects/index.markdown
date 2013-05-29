@@ -10,6 +10,10 @@ footer: true
 <h2>My projects</h2>
 
 <ul class="posts">
+   <li>
+    <a href="http://github.com/lucassus/mongo_browser">Mongo Browser</a>
+    Admin web inteface for mongodb databases written in sinatra ruby framework and angular.js the supersonic javascript framework.
+  </li>
   <li>
     <a href="http://github.com/lucassus/rwiki">Rwiki</a>
     Yet another personal wiki
